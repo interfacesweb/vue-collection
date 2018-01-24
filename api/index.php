@@ -1,34 +1,62 @@
 <?php
 
-// Manejador de errores.
-// Para mostrar información en se archivo hay que ejecutar:
-// $app->getLog()->info('MENSAJE DE TEXTO');
-
-class GestorErrores {
-  public function write($message) {
-    // Los errores se muestran en el archivo 'errores.log' dentro de la carpeta 'api'
-    file_put_contents('errores.log', $message . PHP_EOL, FILE_APPEND);
-  }
-}
-
-
 // Cargar Slim Framework y Eloquent a través de Composer
 require '../vendor/autoload.php';
 
 // Conexión con la base de datos
 require 'database.php';
 
-// Crear la aplicación Slim que trabaje con el sistema de Views Twig
-$app = new \Slim\Slim(array(
-    'view' => new \Slim\Views\Twig(),
-    'log.enabled' => true, // Habilitar errores
-    'log.level' => \Slim\Log::DEBUG,
-    'log.writer' => new GestorErrores()
-));
+// Configuración de Slim
+$config = [
+    'settings' => [
+        'displayErrorDetails' => true
+    ]
+];
+$app = new \Slim\App($config);
 
-// Establecer el tipo de datos devuelto por defecto como JSon
-// Ponemos también la codificación de caracteres en utf-8 para los caracteres españoles
-$app->response->headers->set('Content-Type', 'application/json;charset=utf-8');
+// Get container
+$container = $app->getContainer();
+
+// Manejador de errores.
+// Para mostrar información en el archivo app.log hay que ejecutar:
+// $this->logger->addInfo('Something interesting happened');
+$container['logger'] = function($c) {
+    $logger = new \Monolog\Logger('MultimediaDB');
+    $file_handler = new \Monolog\Handler\StreamHandler('./app.log');
+    $logger->pushHandler($file_handler);
+    return $logger;
+};
+
+// Sistema de views Twig
+$container['view'] = function ($container) {
+    $view = new \Slim\Views\Twig('./templates', [
+        'cache' => false
+    ]);
+
+    // Instantiate and add Slim specific extension
+    $basePath = rtrim(str_ireplace('index.php', '', $container['request']->getUri()->getBasePath()), '/');
+    $view->addExtension(new Slim\Views\TwigExtension($container['router'], $basePath));
+
+    return $view;
+};
+
+// Middleware para que funcione CORS https://www.slimframework.com/docs/cookbook/enable-cors.html
+// Necesario para acceder al servidor desde otro servidor en un dominio distinto (servidor de desarrollo de VueJS)
+$app->options('/{routes:.+}', function ($request, $response, $args) {
+    return $response;
+});
+
+$app->add(function ($req, $res, $next) {
+    $response = $next($req, $res);
+    return $response
+        // Establecer el tipo de datos devuelto por defecto como JSON
+        // Ponemos también la codificación de caracteres en utf-8 para los caracteres españoles
+        ->withHeader('Content-Type', 'application/json;charset=utf-8')
+        // Cabeceras para CORS https://www.slimframework.com/docs/cookbook/enable-cors.html
+        ->withHeader('Access-Control-Allow-Origin', '*')
+        ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
+        ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+});
 
 // Script con la ruta de entrada a la API
 require 'root.php';

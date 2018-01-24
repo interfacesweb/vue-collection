@@ -7,88 +7,71 @@ class Musicalbum extends \Illuminate\Database\Eloquent\Model
 }
 
 // Añadir el resto del código aquí
-$app->get('/musicalbums', function () use ($app)  {
+$app->get('/musicalbums', function ($req, $res, $args) {
 
-  // Creamos un objeto collection + json con la lista de películas
+    // Creamos un objeto collection + json con la lista de películas
 
-  // Obtenemos el objeto request, que representa la petición HTTP
-  $req = $app->request;
+    // Obtenemos la lista de películas de la base de datos y la convertimos del formato Json (el devuelto por Eloquent) a un array PHP
+    $musicalbums = json_decode(\MusicAlbum::all());
 
-  // Obtenemos la ruta absoluta de este recurso
-  $absUrl =  $req->getScheme() . "://" . $req->getHost() . $req->getRootUri() . $req->getResourceUri();
-
-  // Obtenemos la lista de películas de la base de datos y la convertimos del formato Json (el devuelto por Eloquent) a un array PHP
-  $pelis = json_decode(\MusicAlbum::all());
-
-   $app->view()->setData(array(
-	'url' => $absUrl,	
-	'items' => $pelis
-	));
-
-  // Mostramos la vista
-  $app->render('musicalbumlist_template.php'); 
-});
+    // Mostramos la vista
+    return $this->view->render($res, 'musicalbumlist_template.php', [
+        'url' => $req->getUri(),
+        'items' => $musicalbums
+    ]);
+})->setName('musicalbums');
 
 
 /*  Obtención de un album en concreto  */
-$app->get('/musicalbums/:name', function ($name) use ($app) {
+$app->get('/musicalbums/{name}', function ($req, $res, $args) {
 
-  // Obtenemos el objeto request, que representa la petición HTTP
-  $req = $app->request;
+    // Obtenemos la película de la base de datos a partir de su id y la convertimos del formato Json (el devuelto por Eloquent) a un array PHP
+    $p = \MusicAlbum::find($args['name']);  
+    $musicalbum = json_decode($p);
 
-  // Obtenemos la ruta absoluta de este recurso
-  $absUrl =  $req->getScheme() . "://" . $req->getHost() . $req->getRootUri() . $req->getResourceUri();
-
-  // Obtenemos la película de la base de datos a partir de su id y la convertimos del formato Json (el devuelto por Eloquent) a un array PHP
-  $p = \MusicAlbum::find($name);  
-  $peli = json_decode($p);
-
-  $app->view()->setData(array(
-	'url' => preg_replace('/'. preg_quote('/' . $name, '/') . '$/', '', $absUrl),
-	'item' => $peli
-	));
-
-  // Mostramos la vista
-  $app->render('musicalbum_template.php'); 
-
+    // Mostramos la vista
+    return $this->view->render($res, 'musicalbum_template.php', [
+        'url' => $this->router->pathFor('musicalbums'),
+        'item' => $musicalbum
+    ]);
 
 });
 
 
 /*  Eliminar un album en concreto  */
-$app->delete('/musicalbums/:name', function ($name) use ($app) {
+$app->delete('/musicalbums/{name}', function ($req, $res, $args) {
 
-  $p = \MusicAlbum::find($name);  
-  $p->delete();
+    $p = \MusicAlbum::find($args['name']);  
+    $p->delete();
 });
 
 
 // Añadir album
-$app->post("/musicalbums", function () use ($app) {
+$app->post("/musicalbums", function ($req, $res, $args) {
 
-    $template = json_decode($app->request->getBody(), true);
+    $template = $req->getParsedBody();
 
     $datos=$template['template']['data'];
 
     foreach ($datos as $value) {
       
-      switch($value['name']){
+        switch($value['name']){
         case "name":
-          $name=$value['value'];
-        break;
+            $name=$value['value'];
+            break;
         case "description":
-          $description=$value['value'];
-        break;
+            $description=$value['value'];
+            break;
         case "datePublished":
-          $datePublished=$value['value'];
-        break;
+            $datePublished=$value['value'];
+            break;
         case "image":
-          $image=$value['value'];
-        break;
+            $image=$value['value'];
+            break;
         case "embedUrl":
-          $embedUrl=$value['value'];
-        break;
-      }
+            $embedUrl=$value['value'];
+            break;
+        }
     }
     $album=new Musicalbum;
 
@@ -101,40 +84,34 @@ $app->post("/musicalbums", function () use ($app) {
 });
 
 //Actualizar
-$app->put('/musicalbums/:name', function ($name) use ($app) {
+$app->put('/musicalbums/{name}', function ($req, $res, $args) {
 
-  // Obtenemos el objeto request, que representa la petición HTTP
-  $req = $app->request;
+    // Obtenemos el album de música de la base de datos a partir de su id y la convertimos del formato Json (el devuelto por Eloquent) a un array PHP
+    $p = \MusicAlbum::find($args['name']);
 
-  // Obtenemos la ruta absoluta de este recurso
-  $absUrl =  $req->getScheme() . "://" . $req->getHost() . $req->getRootUri() . $req->getResourceUri();
-
-  // Obtenemos la película de la base de datos a partir de su id y la convertimos del formato Json (el devuelto por Eloquent) a un array PHP
-  $p = \MusicAlbum::find($name);
-
-    $template = json_decode($app->request->getBody(), true);
+    $template = $req->getParsedBody();
 
     $datos=$template['template']['data'];
 
     foreach ($datos as $value) {
       
-      switch($value['name']){
+        switch($value['name']){
         case "name":
-          $name=$value['value'];
-        break;
+            $name=$value['value'];
+            break;
         case "description":
-          $description=$value['value'];
-        break;
+            $description=$value['value'];
+            break;
         case "datePublished":
-          $datePublished=$value['value'];
-        break;
+            $datePublished=$value['value'];
+            break;
         case "image":
-          $image=$value['value'];
-        break;
+            $image=$value['value'];
+            break;
         case "embedUrl":
-          $embedUrl=$value['value'];
-        break;
-      }
+            $embedUrl=$value['value'];
+            break;
+        }
     }
 
     $p->name=$name;

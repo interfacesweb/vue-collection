@@ -7,162 +7,134 @@ class Videogame extends \Illuminate\Database\Eloquent\Model
 }
 
 // Añadir el resto del código aquí
-$app->get('/videogames', function () use ($app)  {
+$app->get('/videogames', function ($req, $res, $args) {
 
-  // Creamos un objeto collection + json con la lista de películas
+    // Creamos un objeto collection + json con la lista de películas
 
-  // Obtenemos el objeto request, que representa la petición HTTP
-  $req = $app->request;
+    // Obtenemos la lista de películas de la base de datos y la convertimos del formato Json (el devuelto por Eloquent) a un array PHP
+    $juegos = json_decode(\VideoGame::all());
 
-  // Obtenemos la ruta absoluta de este recurso
-  $absUrl =  $req->getScheme() . "://" . $req->getHost() . $req->getRootUri() . $req->getResourceUri();
-
-  // Obtenemos la lista de películas de la base de datos y la convertimos del formato Json (el devuelto por Eloquent) a un array PHP
-  $juegos = json_decode(\VideoGame::all());
-
-   $app->view()->setData(array(
-	'url' => $absUrl,	
-	'items' => $juegos
-	));
-
-  // Mostramos la vista
-  $app->render('videogamelist_template.php'); 
-});
+    // Mostramos la vista
+    return $this->view->render($res, 'videogamelist_template.php', [
+        'url' => $req->getUri(),
+        'items' => $juegos
+    ]);
+})->setName('games');
 
 
 /*  Obtención de un videojuego en concreto  */
-$app->get('/videogames/:name', function ($name) use ($app) {
+$app->get('/videogames/{name}', function ($req, $res, $args) {
 
-  // Creamos un objeto collection + json con el videojuego pasada como parámetro
+    // Creamos un objeto collection + json con el videojuego pasada como parámetro
 
-  // Obtenemos el objeto request, que representa la petición HTTP
-  $req = $app->request;
+    // Obtenemos el videojuego de la base de datos a partir de su id y la convertimos del formato Json (el devuelto por Eloquent) a un array PHP
+    $p = \VideoGame::find($args['name']);  
+    $juego = json_decode($p);
 
-  // Obtenemos la ruta absoluta de este recurso
-  $absUrl =  $req->getScheme() . "://" . $req->getHost() . $req->getRootUri() . $req->getResourceUri();
-
-  // Obtenemos el videojuego de la base de datos a partir de su id y la convertimos del formato Json (el devuelto por Eloquent) a un array PHP
-  $p = \VideoGame::find($name);  
-  $juego = json_decode($p);
-
-  $app->view()->setData(array(
-	'url' => preg_replace('/'. preg_quote('/' . $name, '/') . '$/', '', $absUrl),
-	'item' => $juego
-	));
-
-  // Mostramos la vista
-  $app->render('videogame_template.php'); 
-
+    // Mostramos la vista
+    return $this->view->render($res, 'videogame_template.php', [
+        'url' => $this->router->pathFor('games'),
+        'item' => $juego
+    ]);
 
 });
 
 /*  Eliminacion de un videojuego en concreto  */
-$app->delete('/videogames/:name', function ($name) use ($app) {
+$app->delete('/videogames/{name}', function ($req, $res, $args) {
 	
-  // Obtenemos el videojuego de la base de datos a partir de su id y la convertimos del formato Json (el devuelto por Eloquent) a un array PHP
-  $p = \VideoGame::find($name); 
-  $p->delete();
+    // Obtenemos el videojuego de la base de datos a partir de su id y la convertimos del formato Json (el devuelto por Eloquent) a un array PHP
+    $p = \VideoGame::find($args['name']); 
+    $p->delete();
 
 });
 
 /*Crea un nuevo videojuego con los datos recibidos*/
-$app->post('/videogames', function () use ($app) {
-  //Código para peticiones de POST (creación de items)
-  $body = $app->request->getBody();
-  $template = json_decode($body, true);
-  $datos = $template['template']['data'];  
+$app->post('/videogames', function ($req, $res, $args) {
+    //Código para peticiones de POST (creación de items)
+    $template = $req->getParsedBody();
+    $datos = $template['template']['data'];  
 
-  $longitud = count($datos);
-  for($i=0; $i<$longitud; $i++)
-  {
-    switch ($datos[$i]['name']){
-	  case "name":
-	    $name = $datos[$i]['value'];
-		break;
-	  case "description":
-	    $desc = $datos[$i]['value'];
-		break;
-	  case "gamePlatform":
-	    $plataf = $datos[$i]['value'];
-		break;
-	  case "applicationSubCategory":
-	    $category = $datos[$i]['value'];
-		break;
-	  case "screenshot":
-	    $screenshot = $datos[$i]['value'];
-		break;
-	  case "datePublished":
-	    $date = $datos[$i]['value'];
-		break;
-	  case "embedUrl":
-	    $embedUrl = $datos[$i]['value'];
-		break;		
-	}    
-  }
+    $longitud = count($datos);
+    for($i=0; $i<$longitud; $i++)
+    {
+        switch ($datos[$i]['name']){
+        case "name":
+            $name = $datos[$i]['value'];
+            break;
+        case "description":
+            $desc = $datos[$i]['value'];
+            break;
+        case "gamePlatform":
+            $plataf = $datos[$i]['value'];
+            break;
+        case "applicationSubCategory":
+            $category = $datos[$i]['value'];
+            break;
+        case "screenshot":
+            $screenshot = $datos[$i]['value'];
+            break;
+        case "datePublished":
+            $date = $datos[$i]['value'];
+            break;
+        case "embedUrl":
+            $embedUrl = $datos[$i]['value'];
+            break;		
+        }    
+    }
   
-  $videogame = new Videogame;
-  $videogame->name = $name;
-  $videogame->description = $desc;
-  $videogame->gamePlatform = $plataf;
-  $videogame->applicationSubCategory = $category;
-  $videogame->screenshot =  $screenshot;
-  $videogame->datePublished = $date;
-  $videogame->embedUrl = $embedUrl;
+    $videogame = new Videogame;
+    $videogame->name = $name;
+    $videogame->description = $desc;
+    $videogame->gamePlatform = $plataf;
+    $videogame->applicationSubCategory = $category;
+    $videogame->screenshot =  $screenshot;
+    $videogame->datePublished = $date;
+    $videogame->embedUrl = $embedUrl;
   
-  $videogame->save();
-  // Mostramos la vista
-  $app->render('videogame_template.php'); 
+    $videogame->save();
 });
 
 
 //Actualizar videojuego
 
-$app->put('/videogames/:id', function ($id) use ($app) {
+$app->put('/videogames/{name}', function ($req, $res, $args) {
 
 	// Creamos un objeto collection + json con el libro pasado como parámetro
 
-	// Obtenemos el objeto request, que representa la petición HTTP
-	$req = $app->request;
-
-	// Obtenemos la ruta absoluta de este recurso
-	$absUrl =  $req->getScheme() . "://" . $req->getHost() . $req->getRootUri() . $req->getResourceUri();
-
 	// Obtenemos el libro de la base de datos a partir de su id y la convertimos del formato Json (el devuelto por Eloquent) a un array PHP
-	$nuevo_videogame = \VideoGame::find($id);	
+	$nuevo_videogame = \VideoGame::find($args['name']);	
 
-	$body = $app->request->getBody();
-
-	$template = json_decode($app->request->getBody(), true);
+    $template = $req->getParsedBody();
 
 	$datos = $template['template']['data'];
   	foreach ($datos as $item)
   	{ 
 		switch($item['name'])
 		{
-			case "name":
-				$name = $item['value'];
-				break;
-			case "description":
-				$description = $item['value'];
-				break;
-			case "gamePlatform":
-				$gamePlatform = $item['value'];
-				break;
+        case "name":
+            $name = $item['value'];
+            break;
+        case "description":
+            $description = $item['value'];
+            break;
+        case "gamePlatform":
+            $gamePlatform = $item['value'];
+            break;
 
-			case "applicationSubCategory":
-				$applicationSubCategory = $item['value'];
-				break;
+        case "applicationSubCategory":
+            $applicationSubCategory = $item['value'];
+            break;
 
-			case "screenshot":
-				$screenshot = $item['value'];
-				break;
+        case "screenshot":
+            $screenshot = $item['value'];
+            break;
 				
-			case "embedUrl":
-				$embedUrl = $item['value'];
-				break;
-			case "datePublished":
-				$datePublished = $item['value'];
-				break;
+        case "embedUrl":
+            $embedUrl = $item['value'];
+            break;
+        case "datePublished":
+            $datePublished = $item['value'];
+            break;
 		}
 	}
 
