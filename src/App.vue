@@ -14,9 +14,9 @@
     <CollectionLinks :links="c.collection.links" @link-clicked="readCollection"></CollectionLinks>
     
     <!--  items Container  -->
-    <!-- We pass the items array to the items component -->
+    <!-- We pass the whole collection object to the items component -->
     <!-- https://vuejs.org/v2/guide/components.html#Dynamic-Props -->
-    <CollectionItems :items="c.collection.items"></CollectionItems>
+    <CollectionItems :collection="c.collection" @link-clicked="readCollection" @refresh="readCollection"></CollectionItems>
     
     <!-- Template Container -->
     <!-- We pass collection.href and collection.template to the component -->

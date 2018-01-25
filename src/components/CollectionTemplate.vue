@@ -7,7 +7,7 @@
   <!-- Listening to events: https://vuejs.org/v2/guide/events.html -->
 
   <div>
-    Template component
+    <h3>Template component</h3>
   </div>
 
 </template>
@@ -46,7 +46,7 @@
               // Emit an event to read again the collection
               // The App component will listen to the 'refresh' event and it will call the readCollection method
               this.$emit('refresh', this.createurl);
-            })
+            }.bind(this))
             .catch(e => {
               // If error, display in console
               console.log(e);

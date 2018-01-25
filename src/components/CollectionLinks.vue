@@ -39,14 +39,12 @@
      // https://vuejs.org/v2/guide/events.html#Methods-in-Inline-Handlers
      // link: the link clicked
      // event: the event object
-     processlink: function(link, event) {
+     processLink: function(link, event) {
        // Prevent <a> element to load the url
        event.preventDefault();
        // Emit the event link-clicked. The App component will listen to it and it will call the readCollection function.
        this.$emit('link-clicked', link.href);
-
-
-       }
+     }
    }
  }
 </script>
