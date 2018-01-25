@@ -13,7 +13,8 @@
 
     <!-- Props: https://vuejs.org/v2/guide/components.html#Dynamic-Props -->
 
-    Links component
+    <h3>Links component</h3>
+    <!-- TODO -->
   </div>
 
 </template>
@@ -24,6 +25,7 @@
    name: 'CollectionLinks',
    /* https://vuejs.org/v2/guide/components.html#Dynamic-Props*/
    props: [
+     // This prop stores the collection.links array
      'links'
    ],
    data: function() {
