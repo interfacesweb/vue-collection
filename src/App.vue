@@ -10,15 +10,18 @@
   <main>
     <!--  links Container  -->
     <!-- We pass the links array to the links component -->
+    <!-- https://vuejs.org/v2/guide/components.html#Dynamic-Props -->
     <CollectionLinks :links="c.collection.links" @link-clicked="readCollection"></CollectionLinks>
     
     <!--  items Container  -->
     <!-- We pass the items array to the items component -->
+    <!-- https://vuejs.org/v2/guide/components.html#Dynamic-Props -->
     <CollectionItems :items="c.collection.items"></CollectionItems>
     
     <!-- Template Container -->
     <!-- We pass collection.href and collection.template to the component -->
-    <CollectionTemplate :createurl="c.collection.href" :template="c.collection.template"></CollectionTemplate>
+    <!-- https://vuejs.org/v2/guide/components.html#Dynamic-Props -->
+    <CollectionTemplate :createurl="c.collection.href" :template="c.collection.template" @refresh="readCollection"></CollectionTemplate>
   </main>
 </div>
 </template>
@@ -26,6 +29,7 @@
 <script>
 // Module to make AJAX calls to API server
 import axios from 'axios';
+// Import components
 import CollectionLinks from './components/CollectionLinks';
 import CollectionItems from './components/CollectionItems';
 import CollectionTemplate from './components/CollectionTemplate';
@@ -50,7 +54,7 @@ export default {
     }
   },
   
-  // Components defined in this component
+  // Components used by this component
   components: {
     CollectionItems,
     CollectionLinks,
