@@ -11,7 +11,7 @@ $app->get('/', function ($req, $res, $args) {
     ]);
 
 
-});
+})->setName('root');
 
 
 ?>

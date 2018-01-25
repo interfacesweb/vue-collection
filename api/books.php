@@ -15,7 +15,6 @@ $app->get('/books', function ($req, $res, $args)  {
 
     // Mostramos la vista
     return $this->view->render($res, 'booklist_template.php', [
-        'url' => $req->getUri(),
         'items' => $libros
     ]);
 })->setName('books');
@@ -32,7 +31,6 @@ $app->get('/books/{name}', function ($req, $res, $args) {
 
     // Mostramos la vista
     return $this->view->render($res, 'book_template.php', [
-        'url' => $this->router->pathFor('books'),
         'item' => $libro
     ]);
 

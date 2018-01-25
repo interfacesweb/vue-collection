@@ -16,7 +16,6 @@ $app->get('/musicalbums', function ($req, $res, $args) {
 
     // Mostramos la vista
     return $this->view->render($res, 'musicalbumlist_template.php', [
-        'url' => $req->getUri(),
         'items' => $musicalbums
     ]);
 })->setName('musicalbums');
@@ -31,7 +30,6 @@ $app->get('/musicalbums/{name}', function ($req, $res, $args) {
 
     // Mostramos la vista
     return $this->view->render($res, 'musicalbum_template.php', [
-        'url' => $this->router->pathFor('musicalbums'),
         'item' => $musicalbum
     ]);
 

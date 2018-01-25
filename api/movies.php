@@ -17,7 +17,6 @@ $app->get('/movies', function ($req, $res, $args) {
 
     // Mostramos la vista
     return $this->view->render($res, 'movielist_template.php', [
-        'url' => $req->getUri(),
         'items' => $pelis
     ]);
 })->setName('movies');
@@ -34,7 +33,6 @@ $app->get('/movies/{name}', function ($req, $res, $args) {
 
     // Mostramos la vista
     return $this->view->render($res, 'movie_template.php', [
-        'url' => $this->router->pathFor('movies'),
         'item' => $peli
     ]);
 

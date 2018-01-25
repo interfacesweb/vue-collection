@@ -16,7 +16,6 @@ $app->get('/videogames', function ($req, $res, $args) {
 
     // Mostramos la vista
     return $this->view->render($res, 'videogamelist_template.php', [
-        'url' => $req->getUri(),
         'items' => $juegos
     ]);
 })->setName('games');
@@ -33,7 +32,6 @@ $app->get('/videogames/{name}', function ($req, $res, $args) {
 
     // Mostramos la vista
     return $this->view->render($res, 'videogame_template.php', [
-        'url' => $this->router->pathFor('games'),
         'item' => $juego
     ]);
 
