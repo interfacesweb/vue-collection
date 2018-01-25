@@ -14,6 +14,10 @@ module.exports = {
       '/api': {
         target: 'http://localhost/vue-collection',
         changeOrigin: true
+      },
+      '*': {
+        target: 'http://localhost',
+        changeOrigin: true
       }
     },
 
