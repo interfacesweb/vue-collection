@@ -1,21 +1,29 @@
 # VUE Collection + JSON client
 
-> Vue.js collection+JSON applicacion (client + PHP API server)
+Vue.js Collection + JSON applicacion (client + PHP REST API server)
 
 ## Build Setup
 
+Install XAMPP and copy the repository folder inside `htdocs`
+
 ``` bash
-# install dependencies
+# install server dependencies
+composer install
+
+# install client dependencies
 npm install
 
 # serve with hot reload at localhost:8080
 npm run dev
 
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
 ```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+## Dev server access
+
+- API: (http://localhost/REPO_FOLDER/api)
+- Client: (http://localhost:8080)
+
+## Production Server access (Heroku)
+
+- API: (http://APP_NAME.herokuapp.com/api)
+- Client: (http://APP_NAME.herokuapp.com/dist)
