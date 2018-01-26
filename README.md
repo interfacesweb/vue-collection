@@ -20,10 +20,10 @@ npm run dev
 
 ## Dev server access
 
-- API: (http://localhost/REPO_FOLDER/api)
-- Client: (http://localhost:8080)
+- API: http://localhost/REPO_FOLDER/api
+- Client: http://localhost:8080
 
 ## Production Server access (Heroku)
 
-- API: (http://APP_NAME.herokuapp.com/api)
-- Client: (http://APP_NAME.herokuapp.com/dist)
+- API: http://APP_NAME.herokuapp.com/api
+- Client: http://APP_NAME.herokuapp.com/dist
