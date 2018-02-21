@@ -33,7 +33,7 @@
                 {"name" : "description", "value" : "", "prompt" : "Descripción del libro"},
                 {"name" : "isbn", "value" : "", "prompt" : "ISBN del libro"},
                 {"name" : "datePublished", "value" : "", "prompt" : "Fecha de publicación"},
-                {"name" : "image", "value" : "", "prompt" : "TImagen"}        
+                {"name" : "image", "value" : "", "prompt" : "Imagen"}        
             ]
                 }
     } 
