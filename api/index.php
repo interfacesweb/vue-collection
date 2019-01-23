@@ -64,6 +64,9 @@ require 'root.php';
 // Script para tareas relacionadas con películas
 require 'movies.php';
 
+// Script para tareas relacionadas con series
+require 'tvseries.php';
+
 // Script para tareas relacionadas con libros
 require 'books.php';
 
