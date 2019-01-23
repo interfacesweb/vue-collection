@@ -13,8 +13,8 @@ composer install
 # install client dependencies
 npm install
 
-# serve with hot reload at localhost:8080
-npm run dev
+# serve client with hot reload at localhost:8080
+npm run serve
 
 ```
 
