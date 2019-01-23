@@ -14,6 +14,7 @@
 
        - books
        - movies
+       - TV series
        - videogames
        - music albums
 
@@ -44,7 +45,7 @@
  import axios from 'axios';
  // Import components
  import EditForm from './EditForm';
- // TODO: import components for the 4 item types
+ // TODO: import components for the 5 item types
 
  export default {
    name: 'CollectionItems',
