@@ -106,3 +106,29 @@ INSERT INTO `videogames` (`name`, `description`, `gamePlatform`, `applicationSub
 ('Assassin''s Creed: Unity', 'Assassin''s Creed: Unity es un videojuego de ficción histórica desarrollado por Ubisoft. Es la séptima entrega de la saga Assassin''s Creed y su temática gira en torno a la Revolución Francesa, en el siglo XVIII. El juego fue lanzado en Norteamérica el 11 de noviembre del 2014 y en Europa el 13 de noviembre de 2014.', 'PS4', 'Acción-aventura(parkour) y sigilo', 'https://drh1.img.digitalriver.com/DRHM/Storefront/Company/ubi/images/hero/ubi/ACU_hero.jpg', 'https://www.youtube.com/embed/NVE2FxMWxeg', '2014-11-13'),
 ('League of Legends', 'League of Legends, también conocido por sus siglas LoL, es un videojuego de género multiplayer online battle arena (MOBA). El juego está inspirado en el popular mapa personalizado del Warcraft III, Defense of the Ancients: Allstars (abreviado normalmente con las siglas DotA) diseñado por Steve «Guinsoo» Feak y Steve «Pendragon» Mescon.', 'PC', 'Campo De Batalla Multijugador En Línea', 'http://www.funandseriousgamefestival.com/imagenes/league-of-legends-g.jpg', 'https://www.youtube.com/embed/ZqilPmPw2yc', '2009-10-27');
 
+--
+-- Estructura de tabla para la tabla `tvseries`
+--
+
+CREATE TABLE IF NOT EXISTS `tvseries` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+`name` TEXT COLLATE utf8_spanish_ci NOT NULL,
+`description` TEXT COLLATE utf8_spanish_ci NOT NULL,
+`director` TEXT COLLATE utf8_spanish_ci NOT NULL,
+`numberOfSeasons` SMALLINT NOT NULL,
+`numberOfEpisodes` SMALLINT NOT NULL,
+`embedUrl` TEXT COLLATE utf8_spanish_ci NOT NULL,
+`datePublished` date NOT NULL,
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+
+--
+-- Volcado de datos para la tabla `tvseries`
+--
+
+INSERT INTO `tvseries` (`name`, `description`, `director`, `numberOfSeasons`, `numberOfEpisodes`, `embedUrl`, `datePublished`) VALUES
+('The Sopranos', 'The Sopranos is an American crime drama television series created by David Chase. The story revolves around Tony Soprano (James Gandolfini), a New Jersey-based Italian-American mobster, and portrays the difficulties that he faces as he tries to balance his family life with his role as the leader of a criminal organization. These are explored during his therapy sessions with psychiatrist Jennifer Melfi (Lorraine Bracco). The series features Tony''s family members, mafia colleagues, and rivals in prominent roles—most notably his wife, Carmela (Edie Falco), and his protégé/distant cousin, Christopher Moltisanti (Michael Imperioli).', 'David Chase', 6, 86, 'https://www.youtube.com/embed/wrN2k3qGbVA', '1999-01-10'),
+('Game of Thrones', 'Game of Thrones is roughly based on the storylines of A Song of Ice and Fire, set in the fictional Seven Kingdoms of Westeros and the continent of Essos. The series chronicles the violent dynastic struggles among the realm''s noble families for the Iron Throne, while other families fight for independence from it. It opens with additional threats in the icy North and Essos in the east.', 'David Benioff', 7, 67, 'https://www.youtube.com/embed/wA38GCX4Tb0', '2011-04-17'),
+('Sherlock', 'Sherlock depicts "consulting detective" Sherlock Holmes (Benedict Cumberbatch) solving various mysteries in modern-day London. Holmes is assisted by his flatmate and friend, Dr John Watson (Martin Freeman), who has returned from military service in Afghanistan with the Royal Army Medical Corps. Although Metropolitan Police Service Detective Inspector Greg Lestrade (Rupert Graves) and others are suspicious of Holmes at first, over time, his exceptional intellect and bold powers of observation persuade them of his value. In part through Watson''s blog documenting their adventures, Holmes becomes a reluctant celebrity with the press reporting on his cases and eccentric personal life. Both ordinary people and the British government ask for his help.', 'Mark Gatiss', 4, 13, 'https://www.youtube.com/embed/qlcWFoNqZHc', '2010-07-25');
+
