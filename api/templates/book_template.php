@@ -2,6 +2,7 @@
     {
         "title" : "Book Database",
             "type" : "book",
+            "kind" : "item",
             "version" : "1.0",
             "href" : "{{ path_for('books')}}",
       

@@ -2,6 +2,7 @@
     {
         "title" : "TVSeries Database",
             "type" : "tvseries",
+            "kind" : "item",
             "version" : "1.0",
             "href" : "{{ path_for('tvseries')}}",
       

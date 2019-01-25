@@ -2,6 +2,7 @@
     {
         "title" : "MusicAlbum Database",
             "type" : "music",
+            "kind" : "collection",
             "version" : "1.0",
             "href" : "{{ path_for('musicalbums')}}",
 

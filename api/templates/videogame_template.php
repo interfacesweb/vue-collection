@@ -2,6 +2,7 @@
     {
         "title" : "VideoGame Database",
             "type" : "VideoGame",
+            "kind" : "item",
             "version" : "1.0",
             "href" : "{{ path_for('games')}}",
       

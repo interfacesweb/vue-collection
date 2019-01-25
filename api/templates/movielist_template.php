@@ -2,6 +2,7 @@
     {
         "title" : "Movie Database",
             "type" : "movie",
+            "kind" : "collection",
             "version" : "1.0",
             "href" : "{{ path_for('movies')}}",
 
