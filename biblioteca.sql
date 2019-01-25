@@ -4,8 +4,14 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `biblioteca`
 --
-CREATE DATABASE `biblioteca` DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci;
+CREATE DATABASE IF NOT EXISTS `biblioteca` DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci;
 USE `biblioteca`;
+
+ DROP TABLE IF EXISTS `movies`;
+ DROP TABLE IF EXISTS `videogames`;
+ DROP TABLE IF EXISTS `books`;
+ DROP TABLE IF EXISTS `musicalbums`;
+ DROP TABLE IF EXISTS `tvseries`;
 
 -- --------------------------------------------------------
 
