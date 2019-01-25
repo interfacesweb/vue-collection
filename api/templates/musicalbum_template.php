@@ -23,7 +23,7 @@
                             {"name" : "description", "value" : "{{ item.description }}", "prompt" : "Descripción del Album", "type" : "textarea"},
                             {"name" : "datePublished", "value" : "{{ item.datePublished }}", "prompt" : "Fecha de publicación", "type" : "date"},
                             {"name" : "image", "value" : "{{ item.image }}", "prompt" : "Imagen", "type" : "img"},
-                            {"name" : "embedUrl", "value" : "{{ item.embedUrl }}", "prompt" : "URL de SoundCloud", "type" : "embed"}
+                            {"name" : "embedUrl", "value" : "{{ item.embedUrl }}", "prompt" : "URL de SoundCloud", "type" : "embedURL"}
                         ]
                         } 
 	  
@@ -35,7 +35,7 @@
                 {"name" : "description", "value" : "", "prompt" : "Descripción del Album", "type" : "textarea"},
                 {"name" : "datePublished", "value" : "", "prompt" : "Fecha de publicación", "type" : "date"},
                 {"name" : "image", "value" : "", "prompt" : "Imagen", "type" : "img"},
-                {"name" : "embedUrl", "value" : "", "prompt" : "URL de SoundCloud", "type" : "embed"}     
+                {"name" : "embedUrl", "value" : "", "prompt" : "URL de SoundCloud", "type" : "embedURL"}     
             ]
                 }
     } 
