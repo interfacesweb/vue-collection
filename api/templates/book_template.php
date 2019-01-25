@@ -19,11 +19,11 @@
                 {
                     "href" : "{{ path_for('books') }}/{{ item.id }}",
                         "data" : [
-                            {"name" : "name", "value" : "{{ item.name }}", "prompt" : "Nombre del libro"},
-                            {"name" : "description", "value" : "{{ item.description }}", "prompt" : "Descripción del libro"},
-                            {"name" : "isbn", "value" : "{{ item.isbn }}", "prompt" : "ISBN del libro"},
-                            {"name" : "datePublished", "value" : "{{ item.datePublished }}", "prompt" : "Fecha de publicación"},
-                            {"name" : "image", "value" : "{{ item.image }}", "prompt" : "Imagen"}
+                          {"name" : "name", "value" : "{{ item.name }}", "prompt" : "Nombre del libro", "type" : "text"},
+                          {"name" : "description", "value" : "{{ item.description }}", "prompt" : "Descripción del libro", "type" : "textarea"},
+                          {"name" : "isbn", "value" : "{{ item.isbn }}", "prompt" : "ISBN del libro", "type" : "text"},
+                          {"name" : "datePublished", "value" : "{{ item.datePublished }}", "prompt" : "Fecha de publicación", "type" : "datae"},
+                          {"name" : "image", "value" : "{{ item.image }}", "prompt" : "Imagen", "type" : "img"}
                         ]
                         } 
 	  
@@ -31,11 +31,11 @@
       
             "template" : {
             "data" : [
-                {"name" : "name", "value" : "", "prompt" : "Nombre del libro"},
-                {"name" : "description", "value" : "", "prompt" : "Descripción del libro"},
-                {"name" : "isbn", "value" : "", "prompt" : "ISBN del libro"},
-                {"name" : "datePublished", "value" : "", "prompt" : "Fecha de publicación"},
-                {"name" : "image", "value" : "", "prompt" : "Imagen"}        
+              {"name" : "name", "value" : "", "prompt" : "Nombre del libro", "type" : "text"},
+              {"name" : "description", "value" : "", "prompt" : "Descripción del libro", "type" : "textarea"},
+              {"name" : "isbn", "value" : "", "prompt" : "ISBN del libro", "type" : "text"},
+              {"name" : "datePublished", "value" : "", "prompt" : "Fecha de publicación", "type" : "date"},
+              {"name" : "image", "value" : "", "prompt" : "Imagen", "type" : "img"}        
             ]
                 }
     } 

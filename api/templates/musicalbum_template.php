@@ -19,11 +19,11 @@
                 {
                     "href" : "{{ path_for('musicalbums') }}/{{ item.id }}",
                         "data" : [
-                            {"name" : "name", "value" : "{{ item.name }}", "prompt" : "Nombre del Album"},
-                            {"name" : "description", "value" : "{{ item.description }}", "prompt" : "Descripción del Album"},
-                            {"name" : "datePublished", "value" : "{{ item.datePublished }}", "prompt" : "Fecha de publicación"},
-                            {"name" : "image", "value" : "{{ item.image }}", "prompt" : "Imagen"},
-                            {"name" : "embedUrl", "value" : "{{ item.embedUrl }}", "prompt" : "URL"}
+                            {"name" : "name", "value" : "{{ item.name }}", "prompt" : "Nombre del Album", "type" : "text"},
+                            {"name" : "description", "value" : "{{ item.description }}", "prompt" : "Descripción del Album", "type" : "textarea"},
+                            {"name" : "datePublished", "value" : "{{ item.datePublished }}", "prompt" : "Fecha de publicación", "type" : "date"},
+                            {"name" : "image", "value" : "{{ item.image }}", "prompt" : "Imagen", "type" : "img"},
+                            {"name" : "embedUrl", "value" : "{{ item.embedUrl }}", "prompt" : "URL de SoundCloud", "type" : "embed"}
                         ]
                         } 
 	  
@@ -31,11 +31,11 @@
       
             "template" : {
             "data" : [
-                {"name" : "name", "value" : "", "prompt" : "Nombre del Album"},
-                {"name" : "description", "value" : "", "prompt" : "Descripción del Album"},
-                {"name" : "datePublished", "value" : "", "prompt" : "Fecha de publicación"},
-                {"name" : "image", "value" : "", "prompt" : "Imagen"},
-                {"name" : "embedUrl", "value" : "", "prompt" : "URL"}     
+                {"name" : "name", "value" : "", "prompt" : "Nombre del Album", "type" : "text"},
+                {"name" : "description", "value" : "", "prompt" : "Descripción del Album", "type" : "textarea"},
+                {"name" : "datePublished", "value" : "", "prompt" : "Fecha de publicación", "type" : "date"},
+                {"name" : "image", "value" : "", "prompt" : "Imagen", "type" : "img"},
+                {"name" : "embedUrl", "value" : "", "prompt" : "URL de SoundCloud", "type" : "embed"}     
             ]
                 }
     } 

@@ -21,7 +21,7 @@
                 {
                     "href" : "{{ path_for('musicalbums') }}/{{ item.id }}",
                         "data" : [
-                            {"name" : "name", "value" : "{{ item.name }}", "prompt" : "Nombre del album"}
+                            {"name" : "name", "value" : "{{ item.name }}", "prompt" : "Nombre del album", "type" : "text"}
                         ]
                         } {% if not loop.last %},{% endif %}
 	  
@@ -31,11 +31,11 @@
       
             "template" : {
             "data" : [
-                {"name" : "name", "value" : "", "prompt" : "Nombre del Album"},
-                {"name" : "description", "value" : "", "prompt" : "Descripción del Album"},
-                {"name" : "datePublished", "value" : "", "prompt" : "Fecha de publicación"},
-                {"name" : "image", "value" : "", "prompt" : "Imagen"},
-                {"name" : "embedUrl", "value" : "", "prompt" : "URL de SoundCloud"} 
+                {"name" : "name", "value" : "", "prompt" : "Nombre del Album", "type" : "text"},
+                {"name" : "description", "value" : "", "prompt" : "Descripción del Album", "type" : "textarea"},
+                {"name" : "datePublished", "value" : "", "prompt" : "Fecha de publicación", "type" : "date"},
+                {"name" : "image", "value" : "", "prompt" : "Imagen", "type" : "img"},
+                {"name" : "embedUrl", "value" : "", "prompt" : "URL de SoundCloud", "type" : "embed"}     
             ]
                 }
     } 

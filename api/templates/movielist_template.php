@@ -21,7 +21,7 @@
                 {
                     "href" : "{{ path_for('movies') }}/{{ item.id }}",
                         "data" : [
-                            {"name" : "name", "value" : "{{ item.name }}", "prompt" : "Nombre de la película"}
+                            {"name" : "name", "value" : "{{ item.name }}", "prompt" : "Nombre de la película", "type" : "text"}
                         ]
                         } {% if not loop.last %},{% endif %}
 	  
@@ -31,11 +31,11 @@
       
             "template" : {
             "data" : [
-                {"name" : "name", "value" : "", "prompt" : "Nombre de la película"},
-                {"name" : "description", "value" : "", "prompt" : "Descripción de la película"},
-                {"name" : "director", "value" : "", "prompt" : "Director de la película"},
-                {"name" : "datePublished", "value" : "", "prompt" : "Fecha de lanzamiento"},
-                {"name" : "embedUrl", "value" : "", "prompt" : "Trailer en Youtube"}        
+                {"name" : "name", "value" : "", "prompt" : "Nombre de la película", "type" : "text"},
+                {"name" : "description", "value" : "", "prompt" : "Descripción de la película", "type" : "textarea"},
+                {"name" : "director", "value" : "", "prompt" : "Director de la película", "type" : "text"},
+                {"name" : "datePublished", "value" : "", "prompt" : "Fecha de lanzamiento", "type" : "date"},
+                {"name" : "embedUrl", "value" : "", "prompt" : "Trailer en Youtube", "type" : "embed"}        
             ]
                 }
     } 
