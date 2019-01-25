@@ -133,7 +133,6 @@ $app->put('/tvseries/{name}', function ($req, $res, $args) {
             break;		
         }    
 		}
-	}
 
     $tvserie->name = $name;
     $tvserie->description = $desc;
