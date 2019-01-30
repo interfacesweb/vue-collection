@@ -1,6 +1,13 @@
 module.exports = {
   devServer: {
-    publicPath: './',
-    proxy: 'http://localhost/vue-collection'
+    proxy: {
+      '^/api': {
+        target: 'http://localhost/vue-collection',
+      },
+      '/': {
+        target: 'http://localhost',
+      }
+
+    }
   }
 }
