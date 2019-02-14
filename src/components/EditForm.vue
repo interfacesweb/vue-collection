@@ -53,7 +53,8 @@
                {
                  name: field.name,
                  prompt: field.prompt,
-                 value: d.value
+                 value: d.value,
+                 type: field.type
                }
              )
            }
